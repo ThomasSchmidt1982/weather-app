@@ -3,11 +3,9 @@
   "description": "Le package de mon app weather",
   "version": "1.0.0",
   "author": "Thomas S",
+  "type": "module",
   "repository": {
     "type": "git",
-    "url": ""
-  },
-  "dependencies": {
-    "openmeteo": "^1.2.1"
+    "url": "https://github.com:ThomasSchmidt1982/weather-app.git"
   }
 }
