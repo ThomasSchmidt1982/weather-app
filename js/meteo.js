@@ -60,30 +60,88 @@ async function getweather() {
         const humidity = data.current.relative_humidity_2m;
         const is_day = data.current.is_day;
 
+        /* vérif des valeurs */
         console.log("Weather code :", WMO[weather_code], "(", weather_code, ")");
         console.log("Temperature :", temperature + temp_unit);
         console.log("Ville : " + city.name);
         console.log("lat : " + city_lat + " | long : " + city_long + "")
         console.log("Apparent Temperature :", +app_temp + app_temp_unit);
         console.log("Humidity : ", +humidity + humi_unit);
-        console.log("Is day : ", is_day ? "day" : "night" );
+        console.log("Is day : ", is_day ? "day" : "night");
+        console.log("weather code : ", weather_code);
 
         document.getElementById("weather_code").textContent = WMO[weather_code];
         document.getElementById("city").textContent = city.name;
         document.getElementById("temperature").textContent = temperature + temp_unit;
         document.getElementById("humidity").textContent = humidity + humi_unit;
         document.getElementById("apparent_temperature").textContent = app_temp + app_temp_unit;
-        if (is_day) document.getElementById("day").setAttribute("visibility", "visible");
-        else document.getElementById("night").setAttribute("visibility", "visible")
 
+        if (!is_day) {
+            document.documentElement.style.setProperty("--bg-color", "rgb(0,0,0)");
+            document.getElementById("wmo-default").setAttribute("display", "none");
+            document.getElementById("wmo-night").setAttribute("display", "inline");
+
+        } else {
+            document.documentElement.style.setProperty("--bg-color", "#4b65ef");
+            document.getElementById("wmo-default").setAttribute("display", "none");
+            switch (weather_code) {
+                case 0:
+                case 1:
+                    document.getElementById("wmo-0-1").setAttribute("display", "inline");
+                    break;
+                case 2:
+                    document.getElementById("wmo-2").setAttribute("display", "inline");
+                    break;
+                case 3:
+                    document.getElementById("wmo-3").setAttribute("display", "inline");
+                    break;
+                case 45:
+                case 48:
+                    document.getElementById("wmo-45-48").setAttribute("display", "inline");
+                    break;
+                case 51:
+                case 53:
+                case 55:
+                case 56:
+                case 57:
+                case 61:
+                case 63:
+                case 65:
+                    document.getElementById("wmo-51to67").setAttribute("display", "inline");
+                    break;
+                case 71:
+                case 73:
+                case 75:
+                case 77:
+                    document.getElementById("wmo-71to77").setAttribute("display", "inline");
+                    break;
+                case 80:
+                case 81:
+                case 82:
+                    document.getElementById("wmo-80to82").setAttribute("display", "inline");
+                    break;
+                case 85:
+                case 86:
+                    document.getElementById("wmo-85-86").setAttribute("display", "inline");
+                    break;
+                case 95:
+                case 96:
+                case 99:
+                    document.getElementById("wmo-95to99").setAttribute("display", "inline");
+                    break;
+                default:
+                    document.getElementById("wmo-default").setAttribute("display", "inline");
+            }
+
+        }
     } catch (error) {
         console.log(error);
     }
 }
 
 window.addEventListener("DOMContentLoaded", () => {
-        getweather();
-        setInterval(getweather, 1000 * 60 * 60); //refresh toutes les heures
+    getweather();
+    setInterval(getweather, 1000 * 60 * 60); //refresh toutes les heures
 });
 
 
