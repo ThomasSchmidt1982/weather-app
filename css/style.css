@@ -1,0 +1,153 @@
+:root {
+    background-color: #000000;
+    color: #ffffff;
+    font-family: sans-serif;
+    padding: 0;
+    margin: 0;
+
+}
+.card {
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr 2fr 1fr 1fr 1fr 1fr;
+    width: 300px;
+    height: 500px;
+    background-color: #4b65ef;
+    border-radius: 5px;
+    justify-items: center;
+    align-items: center;
+}
+
+.one {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    grid-column: 1 / 3;
+    grid-row: 1 / 2;
+    border-bottom: 1px solid white;
+}
+
+.two {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    grid-column: 1 / 3;
+    grid-row: 2 / 3;
+}
+
+.three {
+    margin: 0;
+    grid-column: 1 / 3;
+    grid-row: 3 / 4;
+}
+
+.four {
+    margin: 0;
+    grid-column: 1 / 3;
+    grid-row: 4 / 5;
+}
+
+.five {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    grid-column: 1 / 3;
+    grid-row: 5 / 6;
+}
+.five-one {
+    display: grid;
+    align-items: center;
+    justify-items: end;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    grid-column: 1 / 2;
+}
+.five-two {
+    display: grid;
+    align-items: center;
+    justify-items: start;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    grid-column: 2 / 3;
+}
+
+.six {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    grid-column: 1 / 2;
+    grid-row: 6 / 7;
+    border-top: 1px solid white;
+    border-right: 1px solid white;
+}
+.six-one {
+    display: grid;
+    align-items: center;
+    justify-items: end;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    grid-column: 1 / 2;
+}
+.six-two {
+    margin: 0;
+    grid-column: 2 / 3;
+}
+
+
+.seven {
+    grid-template-columns: 1fr 2fr;
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    grid-column: 2 / 3;
+    grid-row: 6 / 7;
+    border-top: 1px solid white;
+}
+.seven-one {
+    display: grid;
+    align-items: center;
+    justify-items: end;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    grid-column: 1 / 2;
+}
+.seven-two {
+    margin: 0;
+    grid-column: 2 / 3;
+}
+
+.icons {
+    width: 30px;
+    height: 30px;
+    fill: white;
+}
+.icons-jour-nuit{
+    width: 100px;
+    height: 100px;
+    fill: white;
+}
+#city {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 90%;
+}
+#temperature {
+    font-size: 4.2em;
+}
