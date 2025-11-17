@@ -38,12 +38,12 @@ async function getweather() {
         // gestion background-color nuit jour
         if (!is_day) {
             document.documentElement.style.setProperty("--bg-color", "rgb(0,0,0)");
-            wmoLoadingNone();
+            wmoLoadingToNone();
             document.getElementById("wmo-night").style.display = "inline";
 
         } else {
             document.documentElement.style.setProperty("--bg-color", "#4b65ef");
-            wmoLoadingNone();
+            wmoLoadingToNone();
             // gestion diff icones svg + errors
             switch (weather_code) {
                 case 0:
@@ -96,7 +96,7 @@ async function getweather() {
         }
     } catch (error) {
         console.log(error);
-        wmoLoadingNone();
+        wmoLoadingToNone();
         document.getElementById("wmo-error").style.display = "inline";
         document.getElementById("error-message").style.display = "inline";
         document.getElementById("error-message").textContent = error;
@@ -104,14 +104,16 @@ async function getweather() {
 }
 
 /* functions */
-
 async function fetchCityInfos() {
     // chargement de la ville + lat / long
     const ville = conf.ville;
     const url_city = `https://geocoding-api.open-meteo.com/v1/search?name=${ville}&count=1&language=fr&format=json`;
     const response_city = await fetch(url_city);
     const data_city = await response_city.json();
-    // console.log(data_city);
+    // test si pb ville
+    if (!data_city.results || data_city.results.length === 0) {
+        throw new Error(`Ville "${ville}" introuvable`);
+    }
     const cityInfos = data_city.results[0];
     return cityInfos;
 }
@@ -122,17 +124,17 @@ async function fetchWeather() {
     const url = `https://api.open-meteo.com/v1/forecast?latitude=${cityInfos.latitude}&longitude=${cityInfos.longitude}&models=best_match&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,weather_code`;
     const response = await fetch(url);
     const data = await response.json();
-    // console.log(data);
-
+    // unités
     const temp_unit = data.current_units.temperature_2m;
     const humi_unit = data.current_units.relative_humidity_2m;
     const app_temp_unit = data.current_units.apparent_temperature;
-
+    // données
     const weather_code = data.current.weather_code;
     const temperature = data.current.temperature_2m;
     const app_temp = data.current.apparent_temperature;
     const humidity = data.current.relative_humidity_2m;
     const is_day = data.current.is_day;
+
     return { cityInfos, temp_unit, humi_unit, app_temp_unit, weather_code, temperature, app_temp, humidity, is_day };
 }
 
