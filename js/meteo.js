@@ -138,7 +138,7 @@ async function fetchWeather() {
     return { cityInfos, temp_unit, humi_unit, app_temp_unit, weather_code, temperature, app_temp, humidity, is_day };
 }
 
-function wmoLoadingNone(){
+function wmoLoadingToNone(){
     document.getElementById("wmo-loading").style.display = "none";
     document.getElementById("loading-message").style.display = "none";
 }
