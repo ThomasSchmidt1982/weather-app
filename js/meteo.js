@@ -37,12 +37,14 @@ async function getweather() {
 
         // gestion background-color nuit jour
         if (!is_day) {
-            document.documentElement.style.setProperty("--bg-color", "rgb(0,0,0)");
+            document.documentElement.classList.add("night");
+            document.documentElement.classList.remove("day");
             wmoLoadingToNone();
             document.getElementById("wmo-night").style.display = "inline";
 
         } else {
-            document.documentElement.style.setProperty("--bg-start", "#4b65ef");
+            document.documentElement.classList.add("day");
+            document.documentElement.classList.remove("night");
             wmoLoadingToNone();
             // gestion diff icones svg + errors
             switch (weather_code) {
@@ -101,6 +103,7 @@ async function getweather() {
         document.getElementById("error-message").style.display = "inline";
         document.getElementById("error-message").textContent = error;
     }
+
 }
 
 /* functions */
