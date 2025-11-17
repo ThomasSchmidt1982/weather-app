@@ -13,8 +13,10 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 1fr 2fr 1fr 1fr 1fr 1fr;
-    width: 300px;
-    height: 500px;
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    aspect-ratio: 3/5;
     background: linear-gradient(70deg, var(--bg-color), #6d6da1);
     border-radius: 5px;
     justify-items: center;
