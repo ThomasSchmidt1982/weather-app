@@ -1,5 +1,6 @@
 :root {
-    --bg-color : #4b65ef;
+    --bg-start : #4b65ef;
+    --bg-end : #6d6da1;
     background-color: #606060;
     color: #ffffff;
     font-family: sans-serif;
@@ -16,13 +17,12 @@
     max-width: 300px;
     height: auto;
     aspect-ratio: 3/5;
-    background: linear-gradient(70deg, var(--bg-color), #6d6da1);
+    background: linear-gradient(70deg, var(--bg-start), var(--bg-end));
     border-radius: 5px;
     justify-items: center;
     align-items: center;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
 }
-
 .one {
     display: grid;
     place-items: center;
@@ -34,7 +34,6 @@
     border-bottom: 1px solid white;
     font-size: 1.25em;
 }
-
 .two {
     display: grid;
     place-items: center;
@@ -85,7 +84,6 @@
     margin: 0;
     grid-column: 2 / 3;
 }
-
 .six {
     display: grid;
     grid-template-columns: 1fr 2fr;
@@ -111,8 +109,6 @@
     margin: 0;
     grid-column: 2 / 3;
 }
-
-
 .seven {
     grid-template-columns: 1fr 2fr;
     display: grid;
@@ -137,7 +133,6 @@
     margin: 0;
     grid-column: 2 / 3;
 }
-
 .icons {
     width: 30px;
     height: 30px;
@@ -147,7 +142,6 @@
     display: none;
     width: 100px;
     height: 100px;
-    fill: yellow;
 }
 #wmo-loading, #loading-message {
     display: inline;
