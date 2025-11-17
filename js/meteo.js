@@ -155,7 +155,7 @@ window.addEventListener("DOMContentLoaded", () => {
     const REFRESH_INTERVAL_1H = 1000 * 60 * 60;
     const REFRESH_INTERVAL_10S = 1000 * 10;
     getweather();
-    setInterval(getweather, REFRESH_INTERVAL_10S);
+    setInterval(getweather, REFRESH_INTERVAL_1H);
 });
 
 
