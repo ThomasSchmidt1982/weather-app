@@ -42,7 +42,7 @@ async function getweather() {
             document.getElementById("wmo-night").style.display = "inline";
 
         } else {
-            document.documentElement.style.setProperty("--bg-color", "#4b65ef");
+            document.documentElement.style.setProperty("--bg-start", "#4b65ef");
             wmoLoadingToNone();
             // gestion diff icones svg + errors
             switch (weather_code) {
