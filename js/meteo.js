@@ -1,61 +1,50 @@
 import conf from "../conf.json" with { type: "json"};
-
 async function getweather() {
     try {
-        // chargement des codes wmo
-        const resp_wmo = await fetch("../wmo.json");
-        const wmo_array = await resp_wmo.json();
-        // chargement de la ville + lat / long
-        const ville = conf.ville;
-        const url_city = "https://geocoding-api.open-meteo.com/v1/search?name=" + ville + "&count=1&language=fr&format=json";
-        const response_city = await fetch(url_city);
-        const data_city = await response_city.json();
-        console.log(data_city);
-        const city = data_city.results[0];
-        const city_lat = city.latitude;
-        const city_long = city.longitude;
-        // chargement des données météo
-        const url = "https://api.open-meteo.com/v1/forecast?latitude=" + city_lat + "&longitude=" + city_long + "&models=best_match&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,weather_code";
-        const response = await fetch(url);
-        const data = await response.json();
-        console.log(data);
 
-        const temp_unit = data.current_units.temperature_2m;
-        const humi_unit = data.current_units.relative_humidity_2m;
-        const app_temp_unit = data.current_units.apparent_temperature;
+        const {
+            cityInfos,
+            temp_unit,
+            humi_unit,
+            app_temp_unit,
+            weather_code,
+            temperature,
+            app_temp,
+            humidity,
+            is_day } = await fetchWeather();
 
-        const weather_code = data.current.weather_code;
-        const temperature = data.current.temperature_2m;
-        const app_temp = data.current.apparent_temperature;
-        const humidity = data.current.relative_humidity_2m;
-        const is_day = data.current.is_day;
-
-        /* vérif des valeurs */
+        /* vérif des valeurs
         console.log("Weather code :", wmo_array[weather_code], "(", weather_code, ")");
         console.log("Temperature :", temperature + temp_unit);
-        console.log("Ville : " + city.name);
-        console.log("lat : " + city_lat + " | long : " + city_long + "")
+        console.log("Ville : " + cityInfos.name);
+        console.log("lat : " + cityInfos.latitude + " | long : " + cityInfos.longitude + "")
         console.log("Apparent Temperature :", +app_temp + app_temp_unit);
         console.log("Humidity : ", +humidity + humi_unit);
         console.log("Is day : ", is_day ? "day" : "night");
         console.log("weather code : ", weather_code);
+        */
 
+        // chargement des codes wmo
+        const resp_wmo = await fetch("../wmo.json");
+        const wmo_array = await resp_wmo.json();
+
+        // affichage des donnéees vers HTML
         document.getElementById("weather_code").textContent = wmo_array[weather_code];
-        document.getElementById("city").textContent = city.name;
+        document.getElementById("city").textContent = cityInfos.name;
         document.getElementById("temperature").textContent = temperature + temp_unit;
         document.getElementById("humidity").textContent = humidity + humi_unit;
         document.getElementById("apparent_temperature").textContent = app_temp + app_temp_unit;
 
+        // gestion background-color nuit jour
         if (!is_day) {
             document.documentElement.style.setProperty("--bg-color", "rgb(0,0,0)");
-            document.getElementById("wmo-loading").style.display = "none";
-            document.getElementById("loading-message").style.display = "none";
+            wmoLoadingNone();
             document.getElementById("wmo-night").style.display = "inline";
 
         } else {
             document.documentElement.style.setProperty("--bg-color", "#4b65ef");
-            document.getElementById("wmo-loading").style.display = "none";
-            document.getElementById("loading-message").style.display = "none";
+            wmoLoadingNone();
+            // gestion diff icones svg + errors
             switch (weather_code) {
                 case 0:
                 case 1:
@@ -107,17 +96,57 @@ async function getweather() {
         }
     } catch (error) {
         console.log(error);
-        document.getElementById("wmo-loading").style.display = "none";
-        document.getElementById("loading-message").style.display = "none";
+        wmoLoadingNone();
         document.getElementById("wmo-error").style.display = "inline";
         document.getElementById("error-message").style.display = "inline";
         document.getElementById("error-message").textContent = error;
     }
 }
 
+/* functions */
+
+async function fetchCityInfos() {
+    // chargement de la ville + lat / long
+    const ville = conf.ville;
+    const url_city = `https://geocoding-api.open-meteo.com/v1/search?name=${ville}&count=1&language=fr&format=json`;
+    const response_city = await fetch(url_city);
+    const data_city = await response_city.json();
+    // console.log(data_city);
+    const cityInfos = data_city.results[0];
+    return cityInfos;
+}
+
+async function fetchWeather() {
+    const cityInfos = await fetchCityInfos();
+    // chargement des données météo
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${cityInfos.latitude}&longitude=${cityInfos.longitude}&models=best_match&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,weather_code`;
+    const response = await fetch(url);
+    const data = await response.json();
+    // console.log(data);
+
+    const temp_unit = data.current_units.temperature_2m;
+    const humi_unit = data.current_units.relative_humidity_2m;
+    const app_temp_unit = data.current_units.apparent_temperature;
+
+    const weather_code = data.current.weather_code;
+    const temperature = data.current.temperature_2m;
+    const app_temp = data.current.apparent_temperature;
+    const humidity = data.current.relative_humidity_2m;
+    const is_day = data.current.is_day;
+    return { cityInfos, temp_unit, humi_unit, app_temp_unit, weather_code, temperature, app_temp, humidity, is_day };
+}
+
+function wmoLoadingNone(){
+    document.getElementById("wmo-loading").style.display = "none";
+    document.getElementById("loading-message").style.display = "none";
+}
+
+
 window.addEventListener("DOMContentLoaded", () => {
+    const REFRESH_INTERVAL_1H = 1000 * 60 * 60;
+    const REFRESH_INTERVAL_10S = 1000 * 10;
     getweather();
-    setInterval(getweather, 1000 * 60 * 60); //refresh toutes les heures
+    setInterval(getweather, REFRESH_INTERVAL_1H);
 });
 
 
