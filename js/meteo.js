@@ -1,7 +1,6 @@
 import conf from "../conf.json" with { type: "json"};
 
 async function getweather() {
-
     try {
         // chargement des codes wmo
         const resp_wmo = await fetch("../wmo.json");
@@ -49,26 +48,28 @@ async function getweather() {
 
         if (!is_day) {
             document.documentElement.style.setProperty("--bg-color", "rgb(0,0,0)");
-            document.getElementById("wmo-default").setAttribute("display", "none");
-            document.getElementById("wmo-night").setAttribute("display", "inline");
+            document.getElementById("wmo-loading").style.display = "none";
+            document.getElementById("loading-message").style.display = "none";
+            document.getElementById("wmo-night").style.display = "inline";
 
         } else {
             document.documentElement.style.setProperty("--bg-color", "#4b65ef");
-            document.getElementById("wmo-default").setAttribute("display", "none");
+            document.getElementById("wmo-loading").style.display = "none";
+            document.getElementById("loading-message").style.display = "none";
             switch (weather_code) {
                 case 0:
                 case 1:
-                    document.getElementById("wmo-0-1").setAttribute("display", "inline");
+                    document.getElementById("wmo-0-1").style.display = "inline";
                     break;
                 case 2:
-                    document.getElementById("wmo-2").setAttribute("display", "inline");
+                    document.getElementById("wmo-2").style.display = "inline";
                     break;
                 case 3:
-                    document.getElementById("wmo-3").setAttribute("display", "inline");
+                    document.getElementById("wmo-3").style.display = "inline";
                     break;
                 case 45:
                 case 48:
-                    document.getElementById("wmo-45-48").setAttribute("display", "inline");
+                    document.getElementById("wmo-45-48").style.display = "inline";
                     break;
                 case 51:
                 case 53:
@@ -78,34 +79,39 @@ async function getweather() {
                 case 61:
                 case 63:
                 case 65:
-                    document.getElementById("wmo-51to67").setAttribute("display", "inline");
+                    document.getElementById("wmo-51to67").style.display = "inline";
                     break;
                 case 71:
                 case 73:
                 case 75:
                 case 77:
-                    document.getElementById("wmo-71to77").setAttribute("display", "inline");
+                    document.getElementById("wmo-71to77").style.display = "inline";
                     break;
                 case 80:
                 case 81:
                 case 82:
-                    document.getElementById("wmo-80to82").setAttribute("display", "inline");
+                    document.getElementById("wmo-80to82").style.display = "inline";
                     break;
                 case 85:
                 case 86:
-                    document.getElementById("wmo-85-86").setAttribute("display", "inline");
+                    document.getElementById("wmo-85-86").style.display = "inline";
                     break;
                 case 95:
                 case 96:
                 case 99:
-                    document.getElementById("wmo-95to99").setAttribute("display", "inline");
+                    document.getElementById("wmo-95to99").style.display = "inline";
                     break;
                 default:
-                    document.getElementById("wmo-default").setAttribute("display", "inline");
+                    document.getElementById("wmo-error").style.display = "inline";
             }
         }
     } catch (error) {
         console.log(error);
+        document.getElementById("wmo-loading").style.display = "none";
+        document.getElementById("loading-message").style.display = "none";
+        document.getElementById("wmo-error").style.display = "inline";
+        document.getElementById("error-message").style.display = "inline";
+        document.getElementById("error-message").textContent = error;
     }
 }
 

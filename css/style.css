@@ -13,7 +13,6 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 1fr 2fr 1fr 1fr 1fr 1fr;
-    width: 100%;
     max-width: 300px;
     height: auto;
     aspect-ratio: 3/5;
@@ -145,9 +144,20 @@
     fill: white;
 }
 .icons-wmo{
+    display: none;
     width: 100px;
     height: 100px;
     fill: yellow;
+}
+#wmo-loading, #loading-message {
+    display: inline;
+}
+#wmo-error, #error-message {
+    color: #fa4a00;
+    font-weight: bold;
+    font-size: 1.25em;
+    text-align: center;
+    display: none;
 }
 #city {
     white-space: nowrap;
