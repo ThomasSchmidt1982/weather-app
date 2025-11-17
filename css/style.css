@@ -1,26 +1,24 @@
 :root {
     --bg-color : oklch(1 0 89.876 / 0.15);
-    --bg-end : rgba(109, 109, 161, 1);
     background-color: #606060;
     --ft-color: #dadada;
     color: var(--ft-color);
-    --br-color: #dadada;
+    --br-color: var(--ft-color);
     font-family: sans-serif;
     padding: 0;
     margin: 0;
 }
 :root.day {
     --bg-color: oklch(70% 0.15 250);
-    --ft-color: #dadada;
+    --ft-color: #ffffff;
+    --br-color: var(--ft-color);
 }
 :root.night {
     --bg-color : rgb(4, 15, 66);
     --ft-color : #8082cc;
-    --br-color : #8082cc;
+    --br-color : var(--ft-color);
 }
 .card {
-    margin: 0;
-    padding: 0;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 1fr 2fr 1fr 1fr 1fr 1fr;
@@ -39,7 +37,6 @@
     place-items: center;
     width: 100%;
     height: 100%;
-    margin: 0;
     grid-column: 1 / 3;
     grid-row: 1 / 2;
     border-bottom: 1px solid var(--br-color);
@@ -50,20 +47,17 @@
     place-items: center;
     width: 100%;
     height: 100%;
-    margin: 0;
     grid-column: 1 / 3;
     grid-row: 2 / 3;
 }
 
 .three {
-    margin: 0;
     grid-column: 1 / 3;
     grid-row: 3 / 4;
     text-align: center;
 }
 
 .four {
-    margin: 0;
     grid-column: 1 / 3;
     grid-row: 4 / 5;
 }
@@ -73,7 +67,6 @@
     place-items: center;
     width: 100%;
     height: 100%;
-    margin: 0;
     grid-column: 1 / 3;
     grid-row: 5 / 6;
 }
@@ -83,7 +76,6 @@
     justify-items: end;
     width: 100%;
     height: 100%;
-    margin: 0;
     grid-column: 1 / 2;
 }
 .five-two {
@@ -92,7 +84,6 @@
     justify-items: start;
     width: 100%;
     height: 100%;
-    margin: 0;
     grid-column: 2 / 3;
 }
 .six {
@@ -101,7 +92,6 @@
     place-items: center;
     width: 100%;
     height: 100%;
-    margin: 0;
     grid-column: 1 / 2;
     grid-row: 6 / 7;
     border-top: 1px solid var(--br-color);
@@ -113,11 +103,9 @@
     justify-items: end;
     width: 100%;
     height: 100%;
-    margin: 0;
     grid-column: 1 / 2;
 }
 .six-two {
-    margin: 0;
     grid-column: 2 / 3;
 }
 .seven {
@@ -126,7 +114,6 @@
     place-items: center;
     width: 100%;
     height: 100%;
-    margin: 0;
     grid-column: 2 / 3;
     grid-row: 6 / 7;
     border-top: 1px solid var(--br-color);
@@ -137,11 +124,9 @@
     justify-items: end;
     width: 100%;
     height: 100%;
-    margin: 0;
     grid-column: 1 / 2;
 }
 .seven-two {
-    margin: 0;
     grid-column: 2 / 3;
 }
 .icons {
