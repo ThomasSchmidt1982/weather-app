@@ -8,7 +8,7 @@
     margin: 0;
 }
 :root.day {
-    --bg-start: rgba(75, 101, 239, 1);
+    --bg-start: oklch(70% 0.15 250);
     --bg-end: rgba(109, 109, 161, 1);
 }
 :root.night {

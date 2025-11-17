@@ -11,7 +11,8 @@ async function getweather() {
             temperature,
             app_temp,
             humidity,
-            is_day } = await fetchWeather();
+            is_day,
+            time } = await fetchWeather();
 
         /* vérif des valeurs
         console.log("Weather code :", wmo_array[weather_code], "(", weather_code, ")");
@@ -29,13 +30,15 @@ async function getweather() {
         const wmo_array = await resp_wmo.json();
 
         // affichage des donnéees vers HTML
+        const majTime = new Date(time).toTimeString('fr-FR');
+        console.log("heure de mise à jour des données " + majTime);
         document.getElementById("weather_code").textContent = wmo_array[weather_code];
         document.getElementById("city").textContent = cityInfos.name;
         document.getElementById("temperature").textContent = temperature + temp_unit;
         document.getElementById("humidity").textContent = humidity + humi_unit;
         document.getElementById("apparent_temperature").textContent = app_temp + app_temp_unit;
 
-        // gestion background-color nuit jour
+        // gestion background-color nuit/jour
         if (!is_day) {
             document.documentElement.classList.add("night");
             document.documentElement.classList.remove("day");
@@ -124,7 +127,7 @@ async function fetchCityInfos() {
 async function fetchWeather() {
     const cityInfos = await fetchCityInfos();
     // chargement des données météo
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${cityInfos.latitude}&longitude=${cityInfos.longitude}&models=best_match&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,weather_code`;
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${cityInfos.latitude}&longitude=${cityInfos.longitude}&models=best_match&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,weather_code&timezone=auto`;
     const response = await fetch(url);
     const data = await response.json();
     // unités
@@ -137,8 +140,9 @@ async function fetchWeather() {
     const app_temp = data.current.apparent_temperature;
     const humidity = data.current.relative_humidity_2m;
     const is_day = data.current.is_day;
-
-    return { cityInfos, temp_unit, humi_unit, app_temp_unit, weather_code, temperature, app_temp, humidity, is_day };
+    const time = data.current.time;
+    console.log(data);
+    return { cityInfos, temp_unit, humi_unit, app_temp_unit, weather_code, temperature, app_temp, humidity, is_day, time };
 }
 
 function wmoLoadingToNone(){
@@ -151,7 +155,7 @@ window.addEventListener("DOMContentLoaded", () => {
     const REFRESH_INTERVAL_1H = 1000 * 60 * 60;
     const REFRESH_INTERVAL_10S = 1000 * 10;
     getweather();
-    setInterval(getweather, REFRESH_INTERVAL_1H);
+    setInterval(getweather, REFRESH_INTERVAL_10S);
 });
 
 
