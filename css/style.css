@@ -3,7 +3,7 @@
     background-color: #606060;
     --ft-color: #dadada;
     color: var(--ft-color);
-    --br-color: var(--ft-color);
+    --br-color: #dadada70;
     font-family: sans-serif;
     padding: 0;
     margin: 0;
@@ -11,12 +11,12 @@
 :root.day {
     --bg-color: oklch(70% 0.15 250);
     --ft-color: #ffffff;
-    --br-color: var(--ft-color);
+    --br-color: #ffffff70;
 }
 :root.night {
     --bg-color : rgb(4, 15, 66);
-    --ft-color : #8082cc;
-    --br-color : var(--ft-color);
+    --ft-color : #6668c3;
+    --br-color: #6668c370;
 }
 .card {
     display: grid;
