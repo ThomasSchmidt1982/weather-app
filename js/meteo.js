@@ -1,4 +1,4 @@
-import conf from "../conf.json" with { type: "json"};
+import conf from "../data/conf.json" with { type: "json"};
 async function getweather() {
     try {
 
@@ -26,7 +26,7 @@ async function getweather() {
         */
 
         // chargement des codes wmo
-        const resp_wmo = await fetch("../wmo.json");
+        const resp_wmo = await fetch("../data/wmo.json");
         const wmo_array = await resp_wmo.json();
 
         // affichage des donnéees vers HTML
@@ -106,7 +106,6 @@ async function getweather() {
         document.getElementById("error-message").style.display = "inline";
         document.getElementById("error-message").textContent = error;
     }
-
 }
 
 /* functions */
@@ -148,6 +147,7 @@ async function fetchWeather() {
 function wmoLoadingToNone(){
     document.getElementById("wmo-loading").style.display = "none";
     document.getElementById("loading-message").style.display = "none";
+    document.getElementsByClassName("wmo-icon").forEach(element => element.style.display = "none")
 }
 
 
