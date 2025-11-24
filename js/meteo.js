@@ -29,8 +29,6 @@ async function getweather() {
         const resp_wmo = await fetch("../data/wmo.json");
         const wmo_array = await resp_wmo.json();
 
-        console.log("webhook testing");
-
         // affichage des donnéees vers HTML
         const majTime = new Date(time).toTimeString('fr-FR');
         console.log("heure de mise à jour des données " + majTime);
