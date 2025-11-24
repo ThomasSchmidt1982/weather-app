@@ -42,13 +42,13 @@ async function getweather() {
         if (!is_day) {
             document.documentElement.classList.add("night");
             document.documentElement.classList.remove("day");
-            wmoLoadingToNone();
+            wmoInitLoading();
             document.getElementById("wmo-night").style.display = "inline";
 
         } else {
             document.documentElement.classList.add("day");
             document.documentElement.classList.remove("night");
-            wmoLoadingToNone();
+            wmoInitLoading();
             // gestion diff icones svg + errors
             switch (weather_code) {
                 case 0:
@@ -101,7 +101,7 @@ async function getweather() {
         }
     } catch (error) {
         console.log(error);
-        wmoLoadingToNone();
+        wmoInitLoading();
         document.getElementById("wmo-error").style.display = "inline";
         document.getElementById("error-message").style.display = "inline";
         document.getElementById("error-message").textContent = error;
@@ -144,7 +144,7 @@ async function fetchWeather() {
     return { cityInfos, temp_unit, humi_unit, app_temp_unit, weather_code, temperature, app_temp, humidity, is_day, time };
 }
 
-function wmoLoadingToNone(){
+function wmoInitLoading(){
     document.getElementById("wmo-loading").style.display = "none";
     document.getElementById("loading-message").style.display = "none";
     document.querySelectorAll(".icons-wmo").forEach(element => element.style.display = "none")
