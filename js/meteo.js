@@ -147,7 +147,7 @@ async function fetchWeather() {
 function wmoLoadingToNone(){
     document.getElementById("wmo-loading").style.display = "none";
     document.getElementById("loading-message").style.display = "none";
-    document.getElementsByClassName("wmo-icon").forEach(element => element.style.display = "none")
+    document.querySelectorAll(".icons-wmo").forEach(element => element.style.display = "none")
 }
 
 
