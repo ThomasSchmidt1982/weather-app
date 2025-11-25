@@ -30,7 +30,7 @@ async function getweather() {
         const wmo_array = await resp_wmo.json();
 
         // affichage des donnéees vers HTML
-        const majTime = new Date(time).toTimeString('fr-FR');
+        const majTime = new Date(time).toLocaleString('fr-FR');
         console.log("heure de mise à jour des données " + majTime);
         document.getElementById("weather_code").textContent = wmo_array[weather_code];
         document.getElementById("city").textContent = cityInfos.name;
